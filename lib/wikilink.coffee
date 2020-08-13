@@ -56,7 +56,11 @@ module.exports = atomWikiLink =
 
   follow: ->
     editor = atom.workspace.getActiveTextEditor()
-    [projPath, relPath] = atom.project.relativizePath(editor?.buffer?.file?.path)
+    if not editor
+        console.log('An editor window must be active before you can follow a link.')
+        return
+
+    [projPath, relPath] = atom.project.relativizePath(editor.buffer?.file?.path)
     noteDirectory = fs.normalize(projPath)
     noteExtension = atom.config.get('wikilink.extension')
     cursorPosition = editor.getCursorBufferPosition()

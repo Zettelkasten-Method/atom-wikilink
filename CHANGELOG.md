@@ -1,3 +1,6 @@
+## 0.16.0
+* Avoid TypeError when there's no active editor pane ([#11](https://github.com/Zettelkasten-Method/atom-wikilink/pull/11)) -- [@theshoals](https://github.com/theshoals)
+
 ## 0.15.0
 * Avoid TypeError when attempting to copy link to unsaved file ([#9](https://github.com/Zettelkasten-Method/atom-wikilink/pull/9)) -- [@theshoals](https://github.com/theshoals)
 
