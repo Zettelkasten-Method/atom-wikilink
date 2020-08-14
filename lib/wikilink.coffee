@@ -27,6 +27,15 @@ module.exports = atomWikiLink =
       description: 'The regex used to identify the contents of a link'
       type: 'string'
       default: '(.+)'
+    linkresolution:
+      title: 'Link Resolution'
+      description: 'The method used to resolve links'
+      type: 'string'
+      default: 'project'
+      enum: [
+        {value: 'project', description: 'Links are resolved relative to the root project folders'}
+        {value: 'file', description: 'Links are resolved relative to the current file'}
+      ]
   subscriptions: null
 
   activate: (state) ->
@@ -56,8 +65,27 @@ module.exports = atomWikiLink =
 
   follow: ->
     editor = atom.workspace.getActiveTextEditor()
-    [projPath, relPath] = atom.project.relativizePath(editor?.buffer?.file?.path)
-    noteDirectory = fs.normalize(projPath)
+    if not editor
+      console.log('An editor window must be active before you can follow a link.')
+      return
+
+    filePath = editor.buffer?.file?.path
+    if not filePath
+      console.log('You must save the file before you can follow a link.')
+      return
+
+    linkResolution = atom.config.get('wikilink.linkresolution')
+
+    if linkResolution is 'project'
+      [projPath, relPath] = atom.project.relativizePath(filePath)
+      if not projPath
+        console.log('The file is not saved in a project folder.')
+        return
+
+      noteDirectory = fs.normalize(projPath)
+    else if linkResolution is 'file'
+      noteDirectory = path.dirname(filePath)
+
     noteExtension = atom.config.get('wikilink.extension')
     cursorPosition = editor.getCursorBufferPosition()
     buffer = editor.getBuffer()
@@ -82,18 +110,32 @@ module.exports = atomWikiLink =
         match = pattern.exec currentRow
 
   copyLink: ->
+    editor = atom.workspace.getActiveTextEditor()
+    if not editor
+      console.log('An editor window must be active before you can copy a link.')
+      return
+
+    filePath = editor.buffer?.file?.path
+    if not filePath
+      console.log('You must save the file before you can copy a link to it.')
+      return
+
     noteExtension = atom.config.get('wikilink.extension')
     linkBegin = atom.config.get('wikilink.linkbegin')
     linkEnd = atom.config.get('wikilink.linkend')
-    editor = atom.workspace.getActiveTextEditor()
-    [projPath, relPath] = atom.project.relativizePath(editor?.buffer?.file?.path)
-    if relPath
-        text = relPath.replace noteExtension, ""
-        text = text.replace /^\/+|^\\+/g, ""
-        text = linkBegin + text + linkEnd
-        atom.clipboard.write(text)
-    else
-        console.log('You must save the file before you can copy a link to it.')
+    linkResolution = atom.config.get('wikilink.linkresolution')
+
+    if linkResolution is 'project'
+      [projPath, relPath] = atom.project.relativizePath(filePath)
+      if not relPath
+        console.log('The file must be saved in a project folder before you can copy a link to it.')
+        return
+    else if linkResolution is 'file'
+      relPath = path.basename(filePath)
+
+    text = relPath.replace noteExtension, ""
+    text = linkBegin + text + linkEnd
+    atom.clipboard.write(text)
 
   provide: ->
     unless @provider?

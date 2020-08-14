@@ -1,3 +1,8 @@
+## 0.16.0
+* Add configuration option to support paths relative to the current file ([#13](https://github.com/Zettelkasten-Method/atom-wikilink/issues/13)) -- [@theshoals](https://github.com/theshoals)
+* Avoid TypeError when there's no active editor pane ([#10](https://github.com/Zettelkasten-Method/atom-wikilink/issues/10)) -- [@theshoals](https://github.com/theshoals)
+* Avoid TypeError when following a link in an unsaved file ([#12](https://github.com/Zettelkasten-Method/atom-wikilink/issues/12)) -- [@theshoals](https://github.com/theshoals)
+
 ## 0.15.0
 * Avoid TypeError when attempting to copy link to unsaved file ([#9](https://github.com/Zettelkasten-Method/atom-wikilink/pull/9)) -- [@theshoals](https://github.com/theshoals)
 
