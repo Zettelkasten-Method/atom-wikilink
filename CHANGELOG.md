@@ -1,3 +1,6 @@
+## 0.17.0
+* Use a non-greedy regex to match links ([#15](https://github.com/Zettelkasten-Method/atom-wikilink/issues/15)) -- [@theshoals](https://github.com/theshoals)
+
 ## 0.16.0
 * Add configuration option to support paths relative to the current file ([#13](https://github.com/Zettelkasten-Method/atom-wikilink/issues/13)) -- [@theshoals](https://github.com/theshoals)
 * Avoid TypeError when there's no active editor pane ([#10](https://github.com/Zettelkasten-Method/atom-wikilink/issues/10)) -- [@theshoals](https://github.com/theshoals)

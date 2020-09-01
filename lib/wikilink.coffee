@@ -26,7 +26,7 @@ module.exports = atomWikiLink =
       title: 'Link Regex'
       description: 'The regex used to identify the contents of a link'
       type: 'string'
-      default: '(.+)'
+      default: '(.+?[\\]]?)'
     linkresolution:
       title: 'Link Resolution'
       description: 'The method used to resolve links'
