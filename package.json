@@ -10,7 +10,7 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
-    "escape-string-regexp": ">=1.0.5",
+    "escape-string-regexp": ">=1.0.5 <5.0.0",
     "fs-plus": "2.x",
     "glob": ">=7.1.1"
   },

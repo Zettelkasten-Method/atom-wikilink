@@ -1,5 +1,6 @@
 ## 0.17.0
 * Use a non-greedy regex to match links ([#15](https://github.com/Zettelkasten-Method/atom-wikilink/issues/15)) -- [@theshoals](https://github.com/theshoals)
+* Constrain the escape-string-regexp dependency ([#17](https://github.com/Zettelkasten-Method/atom-wikilink/issues/17)) -- [@theshoals](https://github.com/theshoals)
 
 ## 0.16.0
 * Add configuration option to support paths relative to the current file ([#13](https://github.com/Zettelkasten-Method/atom-wikilink/issues/13)) -- [@theshoals](https://github.com/theshoals)
